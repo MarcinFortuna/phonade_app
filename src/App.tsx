@@ -1,78 +1,116 @@
-import React from 'react';
-import InputBox from './InputBox';
-import Keyboard from './Keyboard';
-import { Provider, connect } from 'react-redux';
-import store from './store'; 
-import ShowItemToTransc from './ShowItemToTransc';
-import ShowScore from './ShowScore';
-import CheckTrans from './CheckTrans';
-import Feedback from './Feedback';
-import Header from './Header';
-import CurrentIdxBox from './CurrentIdx';
-
-const mapStateToProps = (state: any) => {
-  return {
-    inputBoxValue: state.inputBoxReducer,
-    currentItemToTranscr: state.currentTransReducer,
-    currentScore: state.scoreReducer,
-    currentStage: state.stageReducer,
-    currentMode: state.modeReducer,
-    currentArr: state.currentIdxArrayReducer,
-    currentInputCursorIdx: state.inputBoxCursorIdxReducer
-  };
-}
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    handleSpecialKey: (val: string, idx: number) => dispatch({type: "ADD_SYMBOL", value: val, idx: idx}),
-    purge: () => dispatch({type: "PURGE"}),
-    setValue: (val: string) => dispatch({type: "SET_VALUE", value: val}),
-    incrementScore: () => dispatch({type: "SCORE_INCREMENT"}),
-    resetScore: () => dispatch({type: "SCORE_RESET"}),
-    nextTrans: () => dispatch({type: "TRANS_INCREMENT"}),
-    resetTrans: () => dispatch({type: "TRANS_RESET"}),
-    changeStage: () => dispatch({type: "CHANGE_STAGE"}),
-    modeSeqAll: () => dispatch({type: "SEQ_ALL"}),
-    modeRandomAll: () => dispatch({type: "RANDOM_ALL"}),
-    modeRandomTest: () => dispatch({type: "RANDOM_TEST"}),
-    arrSeqAll: () => dispatch({type: "ARR_SEQ_ALL"}),
-    arrRandomAll: () => dispatch({type: "ARR_RANDOM_ALL"}),
-    arrRandomTest: () => dispatch({type: "ARR_RANDOM_TEST"}),
-    setInputCursorIdx: (idx: number) => dispatch({type: "SET_CURSOR_IDX", val: idx})
-  }
-}
-
-// @ts-ignore
-const Component = ({inputBoxValue, handleSpecialKey, purge, setValue, currentItemToTranscr, currentScore, incrementScore, resetScore, nextTrans, resetTrans, currentStage, changeStage, modeSeqAll, modeRandomAll, modeRandomTest, arrSeqAll, arrRandomAll, arrRandomTest, currentMode, currentArr, currentInputCursorIdx, setInputCursorIdx}) => { 
-  const resetMode = () => {
-    console.log("RESET");
-    purge();
-    resetTrans();
-    resetScore();
-    if (currentStage) changeStage();
-  }
-  return <div className="App">
-    <Header modeSeqAll={modeSeqAll} modeRandomAll={modeRandomAll} modeRandomTest={modeRandomTest} arrSeqAll={arrSeqAll} arrRandomAll={arrRandomAll} arrRandomTest={arrRandomTest} currentMode={currentMode} resetMode={resetMode} currentArr={currentArr} />
-    <CurrentIdxBox currentMode={currentMode} idx={currentItemToTranscr} currentArr={currentArr} />
-    <ShowItemToTransc idx={currentItemToTranscr} currentArr={currentArr}/>
-    <ShowScore score={currentScore} currentArr={currentArr} />
-    <Feedback val={inputBoxValue} idx={currentItemToTranscr} currentStage={currentStage} currentArr={currentArr}/>
-    <div id="inputBoxContainer">
-      <InputBox val={inputBoxValue} setValue={setValue} currentInputCursorIdx={currentInputCursorIdx} setInputCursorIdx={setInputCursorIdx} />
-      <CheckTrans idx={currentItemToTranscr} val={inputBoxValue} purge={purge} incrementScore={incrementScore} nextTrans={nextTrans} currentStage={currentStage} changeStage={changeStage} currentArr={currentArr} score={currentScore}/>
-    </div>
-    <Keyboard handleSpecialKey={handleSpecialKey} currentInputCursorIdx={currentInputCursorIdx} setInputCursorIdx={setInputCursorIdx} clear={purge}/>
-  </div>
-}
-
-const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-
+import React, {useState} from 'react';
+import {AppContextInterface, AppContextProvider} from "./libs/ContextLib";
+import {getShuffledArr} from "./helperFunctions";
+import Keyboard from './components/Keyboard';
+import ShowItemToTransc from './components/ShowItemToTransc';
+import ShowScore from './components/ShowScore';
+import SelectMode from './components/SelectMode';
+import CurrentIdxBox from './components/CurrentIdx';
+import Header from "./components/Header";
+import Feedback from "./components/Feedback";
+import InputBox from "./components/InputBox";
+import CheckTrans from "./components/CheckTrans";
+import ClearButton from "./components/ClearButton";
 
 function App() {
-  return (
-    // @ts-ignore    
-    <Provider store={store}><Container /></Provider>
-  );
+
+    // Guess active
+    const [guessActive, setGuessActive] = useState<boolean>(false);
+    const toggleGuessActive = () => setGuessActive(!guessActive);
+
+    // Score
+    const [score, setScore] = useState<number>(0);
+    const incrementScore = () => setScore(score + 1);
+    const resetScore = () => setScore(0);
+
+    // Current array of examples
+    const [currentArray, setCurrentArray] = useState<number[]>([]);
+    const setArrSeqAll = () => setCurrentArray([...Array(200).keys()]);
+    const setArrRandomAll = () => setCurrentArray(getShuffledArr([...Array(200).keys()]));
+    const setArrRandomTest = () => setCurrentArray(getShuffledArr([...Array(200).keys()]).slice(0, 20));
+
+    // Currently displayed transcription
+    const [currentTransIdx, setCurrentTransIdx] = useState<number>(0);
+    const incrementTransIdx = () => setCurrentTransIdx(currentTransIdx + 1);
+    const decrementTransIdx = () => setCurrentTransIdx(currentTransIdx - 1);
+    const resetTransIdx = () => setCurrentTransIdx(0);
+
+    const [currentMode, setCurrentMode] = useState<string>("");
+
+    const [inputBoxValue, setInputBoxValue] = useState<string>("");
+
+    const handleSpecialKey = (value: string, position: number) => {
+        let newVal = inputBoxValue.slice(0, position) + value + inputBoxValue.slice(position);
+        setInputBoxValue(newVal);
+    }
+
+    const [useIpa, setUseIpa] = useState<boolean>(true);
+    const toggleUseIpa = () => setUseIpa(!useIpa);
+
+    const [lastTranscription, setLastTranscription] = useState<string>("");
+    const [lastCorrectTranscription, setLastCorrectTranscription] = useState<string>("");
+
+    const resetMode = () => {
+        console.log("RESET");
+        setInputBoxValue("");
+        resetTransIdx();
+        resetScore();
+        if (guessActive) toggleGuessActive();
+    }
+
+    const appContext: AppContextInterface = {
+        guessActive: guessActive,
+        toggleGuessActive: toggleGuessActive,
+        score: score,
+        incrementScore: incrementScore,
+        resetScore: resetScore,
+        currentArray: currentArray,
+        currentTransIdx: currentTransIdx,
+        incrementTransIdx: incrementTransIdx,
+        decrementTransIdx: decrementTransIdx,
+        resetTransIdx: resetTransIdx,
+        currentMode: currentMode,
+        setCurrentMode: setCurrentMode,
+        inputBoxValue: inputBoxValue,
+        setInputBoxValue: setInputBoxValue,
+        handleSpecialKey: handleSpecialKey,
+        useIpa: useIpa,
+        toggleUseIpa: toggleUseIpa,
+        lastTranscription: lastTranscription,
+        lastCorrectTranscription: lastCorrectTranscription,
+        setLastTranscription: setLastTranscription,
+        setLastCorrectTranscription: setLastCorrectTranscription,
+        resetMode: resetMode
+    }
+
+    return (
+        <AppContextProvider value={appContext}>
+            <div className="App flex flex-col gap-3 items-center">
+                <Header/>
+                <SelectMode setCurrentMode={setCurrentMode} arrSeqAll={setArrSeqAll} arrRandomAll={setArrRandomAll}
+                            arrRandomTest={setArrRandomTest}
+                            currentMode={currentMode} resetMode={resetMode}/>
+                <div className="flex justify-center">
+                    <Feedback/>
+                    <ShowScore/>
+                </div>
+                <div className="card w-96 bg-neutral text-neutral-content">
+                    <div className="card-body items-center text-center">
+                        <ShowItemToTransc idx={currentTransIdx}/>
+                    </div>
+                </div>
+                <div className="form-control text-center">
+                    <div className="input-group flex justify-center">
+                        <InputBox/>
+                        <CheckTrans/>
+                        <ClearButton/>
+                    </div>
+                </div>
+                <Keyboard/>
+                <CurrentIdxBox/>
+            </div>
+        </AppContextProvider>
+    );
 }
 
 export default App;
