@@ -17,7 +17,7 @@ const CurrentIdxBox = () => {
 
     return (
         <div
-            className={`overflow-x-auto max-w-[320px] transition-all duration-250 ${ctx?.useIpa ? "translate-y-0" : "-translate-y-32"}`}>
+            className={`overflow-x-auto max-w-[320px] transition-all duration-250 ${ctx?.useIpa ? "translate-y-0" : "-translate-y-32 md:-translate-y-64"}`}>
             <ul className="steps">
                 {
                     [...Array(range)].map((x, i) =>
