@@ -169,7 +169,7 @@ export const most_common: transcription[] = [
     {id: 166, spelling: "public", sampa_strong: "\"pVblIk", sampa_weak: ""}, 
     {id: 167, spelling: "follow", sampa_strong: "\"fQl@U", sampa_weak: ""}, 
     {id: 168, spelling: "during", sampa_strong: "\"djU@rIN", sampa_weak: ""}, 
-    {id: 169, spelling: "present", sampa_strong: "prI\"zent", sampa_weak: ""}, 
+    {id: 169, spelling: "present (verb)", sampa_strong: "prI\"zent", sampa_weak: ""},
     {id: 170, spelling: "without", sampa_strong: "wID\"aUt", sampa_weak: ""}, 
     {id: 171, spelling: "again", sampa_strong: "@\"ɡen", sampa_weak: ""}, 
     {id: 172, spelling: "hold", sampa_strong: "\"h@Uld", sampa_weak: ""}, 
