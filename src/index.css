@@ -4,3 +4,6 @@
 btn {
     @apply shrink;
 }
+kbd {
+    @apply font-sans;
+}

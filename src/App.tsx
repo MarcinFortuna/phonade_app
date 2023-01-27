@@ -109,7 +109,7 @@ function App() {
                     </div>
                 </div>
                 <Keyboard/>
-                {/*<CurrentIdxBox/>*/}
+                <CurrentIdxBox/>
             </div>
         </AppContextProvider>
     );
