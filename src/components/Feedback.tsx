@@ -30,17 +30,17 @@ const Feedback = () => {
     }
 
     return (
-        <div className="stats shadow">
-            <div className="stat flex items-center justify-center w-[80px]">
-                <div className={feedback_correct_css_class}>{displayFeedback ? text_to_display : "-"}</div>
+        <div className="stats shadow flex">
+            <div className="stat flex items-center justify-center w-1/7 text-xs">
+                <div className={`text-sm ${feedback_correct_css_class}`}>{displayFeedback ? text_to_display : "-"}</div>
             </div>
-            <div className="stat">
-                <div className="stat-title w-[140px] text-center">Your answer</div>
-                <div className="stat-value w-[140px] text-center">{displayFeedback ? lastTranscriptionToDisplay : "------"}</div>
+            <div className="stat w-3/7">
+                <div className="stat-title text-center text-xs sm:text-sm md:text-md">Your answer</div>
+                <div className="stat-value text-center text-sm sm:text-md md:text-lg">{displayFeedback ? lastTranscriptionToDisplay : "------"}</div>
             </div>
-            <div className="stat">
-                <div className="stat-title w-[140px] text-center">Correct answer</div>
-                <div className="stat-value w-[140px] text-center">{displayFeedback ? lastCorrectTranscriptionToDisplay : "------"}</div>
+            <div className="stat w-3/7">
+                <div className="stat-title text-center text-xs sm:text-sm md:text-md">Correct answer</div>
+                <div className="stat-value text-center text-sm sm:text-md md:text-lg">{displayFeedback ? lastCorrectTranscriptionToDisplay : "------"}</div>
             </div>
         </div>
     )

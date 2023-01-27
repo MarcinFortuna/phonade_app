@@ -42,7 +42,7 @@ const CheckTrans = () => {
 
     return (
         <>
-            <button id="checkTransButton" className="btn btn-square w-28 btn-secondary"
+            <button id="checkTransButton" className="btn btn-square w-1/2 btn-secondary"
                     onClick={handleClick}>{ctx?.guessActive ? "Next" : "Check"}</button>
             <ResultAlert display={finishGame} hideAlert={setFinishGame}></ResultAlert>
         </>

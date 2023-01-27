@@ -8,15 +8,13 @@ const Keyboard = () => {
     const ctx = useAppContext();
 
     return(
-        <div className={`flex flex-row justify-center mt-6 mb-3 transition-all duration-200 ${ctx?.useIpa ? 'scale-100' : 'scale-0'}`}>
-            <div className="flex flex-col justify-right items-end mr-1">
-                <span className="badge h-8 mb-1">Vowels:</span>
-                <span className="badge h-8 mb-1">Consonants:</span>
-                <span className="badge h-8">Other:</span>
-            </div>
-            <div className="flex flex-col justify-left">
+        <div className={`flex flex-row justify-center mt-1 sm:mt-3 md:mt-6 mb-3 transition-all duration-200 ${ctx?.useIpa ? 'scale-100' : 'scale-0'}`}>
+            <div className="flex flex-col mr-1 items-center">
+                <span className="badge h-8 mt-1 hidden md:inline-flex">Vowels:</span>
                 <div className="">{vowels.map(key => <Key val={key} key={key[1]}></Key>)}</div>
+                <span className="badge h-8 mt-1 hidden md:inline-flex">Consonants:</span>
                 <div className="">{consonants.map(key => <Key val={key} key={key[1]}></Key>)}</div>
+                <span className="badge h-8 mt-1 hidden md:inline-flex">Other:</span>
                 <div className="">{other_symbols.map(key => <Key val={key} key={key[1]}></Key>)}</div>
             </div>
         </div>

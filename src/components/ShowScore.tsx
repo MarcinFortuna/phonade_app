@@ -8,8 +8,8 @@ const ShowScore = () => {
     return (
         <div className="stats-shadow">
             <div className="stat">
-                <div className="stat-title">Score</div>
-                <div className="stat-value">{ctx?.score || 0}</div>
+                <div className="stat-title text-center md:text-left">Score</div>
+                <div className="stat-value text-center md:text-left">{ctx?.score || 0}</div>
             </div>
         </div>
     )

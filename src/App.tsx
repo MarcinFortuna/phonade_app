@@ -90,7 +90,7 @@ function App() {
                 <SelectMode setCurrentMode={setCurrentMode} arrSeqAll={setArrSeqAll} arrRandomAll={setArrRandomAll}
                             arrRandomTest={setArrRandomTest}
                             currentMode={currentMode} resetMode={resetMode}/>
-                <div className="flex justify-center">
+                <div className="flex justify-center flex-col md:flex-row">
                     <Feedback/>
                     <ShowScore/>
                 </div>
@@ -99,15 +99,17 @@ function App() {
                         <ShowItemToTransc idx={currentTransIdx}/>
                     </div>
                 </div>
-                <div className="form-control text-center">
-                    <div className="input-group flex justify-center">
+                <div className="form-control text-center w-full max-w-[382px]">
+                    <div className="flex justify-center flex-col md:flex-row">
                         <InputBox/>
-                        <CheckTrans/>
-                        <ClearButton/>
+                        <div className="flex w-full">
+                            <CheckTrans/>
+                            <ClearButton/>
+                        </div>
                     </div>
                 </div>
                 <Keyboard/>
-                <CurrentIdxBox/>
+                {/*<CurrentIdxBox/>*/}
             </div>
         </AppContextProvider>
     );

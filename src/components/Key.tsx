@@ -18,7 +18,7 @@ const Key = (props: KeyInterface) => {
     }
 
     return(
-        <kbd className="kbd cursor-pointer" onClick={handleClick} id={"click-"+props.val[1]} title={props.val[1]}>{props.val[0]}</kbd>
+        <kbd className="kbd kbd-sm sm:kbd-md mx-1 sm:mx-0 cursor-pointer" onClick={handleClick} id={"click-"+props.val[1]} title={props.val[1]}>{props.val[0]}</kbd>
     )
 }
  

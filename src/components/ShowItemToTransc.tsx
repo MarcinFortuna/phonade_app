@@ -9,7 +9,9 @@ const ShowItemToTransc = (props:any) => {
     let item_idx: number = ctx?.currentArray[props.idx] || 0;
 
     return (
-        <div className="card-title h-6">{ctx && ctx?.currentArray.length > 0 ? most_common[item_idx].spelling : ""}</div>
+        <div className="pl-2 pr-2">
+            <div className="card-title h-1 w-max">{ctx && ctx?.currentArray.length > 0 ? most_common[item_idx].spelling : ""}</div>
+        </div>
     )
 }
 

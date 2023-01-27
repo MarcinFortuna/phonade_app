@@ -13,8 +13,8 @@ export const SeeList = () => {
     return (
         <>
             <label htmlFor={listActive ? "vocab-list-modal" : ""} className={listActive ? "cursor-pointer" : ""} title="See the full list">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill={listActive ? "currentColor" : "grey"} strokeWidth={1.5}
-                     className="bi bi-list-ol" viewBox="0 0 13 13">
+                <svg xmlns="http://www.w3.org/2000/svg" fill={listActive ? "currentColor" : "grey"} strokeWidth={1.5}
+                     className="bi bi-list-ol w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 13 13">
                     <path fillRule="evenodd"
                           d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
                     <path

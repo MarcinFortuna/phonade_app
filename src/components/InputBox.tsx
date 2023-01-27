@@ -34,7 +34,7 @@ function InputBox() {
     }, [ctx?.useIpa]);
 
     return(
-        <input id="mainInput" className="input input-bordered" value={ctx?.inputBoxValue} onChange={handleChange} onKeyUp={handleEnter} autoFocus></input>
+        <input id="mainInput" className="input input-bordered w-full" value={ctx?.inputBoxValue} onChange={handleChange} onKeyUp={handleEnter} autoFocus></input>
     );
 }
 

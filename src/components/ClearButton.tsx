@@ -10,7 +10,7 @@ const ClearButton = () => {
     }
 
     return (
-        <button className="btn w-20 btn-secondary" onClick={handleClick}>Clear</button>
+        <button className="btn w-1/2 btn-secondary" onClick={handleClick}>Clear</button>
     )
 }
 

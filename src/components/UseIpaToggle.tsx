@@ -8,9 +8,9 @@ export const UseIpaToggle = () => {
     return (
         <div className="form-control">
             <label className="label cursor-pointer">
-                <span className="label-text mr-2">Use X-Sampa</span>
-                <input type="checkbox" className="toggle" checked={ctx?.useIpa} onChange={ctx?.toggleUseIpa}/>
-                <span className="label-text ml-2">Use IPA</span>
+                <span className="label-text mr-1 sm:mr-2 text-xs sm:text-base">X-Sampa</span>
+                <input type="checkbox" className="toggle toggle-xs sm:toggle-md md:toggle-xl" checked={ctx?.useIpa} onChange={ctx?.toggleUseIpa} />
+                <span className="label-text ml-1 sm:ml-2 text-xs sm:text-base">IPA</span>
             </label>
         </div>
     );

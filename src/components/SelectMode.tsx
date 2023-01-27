@@ -19,13 +19,13 @@ const SelectMode = (props: any) => {
     }
 
     return (
-        <div className="btn-group m-auto gap-1 flex justify-center">
-            <button className={`btn ${props.currentMode === 'All (sequential)' ? 'btn-secondary' : 'btn-primary'}`}
-                    onClick={handleClickSeqAll}>All - Sequential</button>
-            <button className={`btn ${props.currentMode === 'All (random order)' ? 'btn-secondary' : 'btn-primary'}`}
-                    onClick={handleClickRandomAll}>All - Random</button>
-            <button className={`btn ${props.currentMode === 'Test (random order)' ? 'btn-secondary' : 'btn-primary'}`}
-                    onClick={handleClickRandomTest}>TEST - 20 Random</button>
+        <div className="btn-group m-auto flex justify-center md:gap-1">
+            <button className={`btn-sm sm:btn-md btn ${props.currentMode === 'All (sequential)' ? 'btn-secondary' : 'btn-primary'}`}
+                    onClick={handleClickSeqAll}>All<br/>Sequential</button>
+            <button className={`btn-sm sm:btn-md btn ${props.currentMode === 'All (random order)' ? 'btn-secondary' : 'btn-primary'}`}
+                    onClick={handleClickRandomAll}>All<br/>Random</button>
+            <button className={`btn-sm sm:btn-md btn ${props.currentMode === 'Test (random order)' ? 'btn-secondary' : 'btn-primary'}`}
+                    onClick={handleClickRandomTest}>TEST<br/>20 Random</button>
         </div>
     )
 }
