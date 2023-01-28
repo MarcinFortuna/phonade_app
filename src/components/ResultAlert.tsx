@@ -20,7 +20,7 @@ export const ResultAlert = (props: ResultAlertInterface) => {
 
     return (
         display && ctx?.score !== undefined && ((ctx?.currentMode === 'Test (random order)' && ctx?.score >= 18) || ctx?.score >= 180) ?
-            <div className="alert alert-success shadow-lg absolute top-[10px] right-[10px] w-max" onClick={() => finish()}>
+            <div className="alert alert-success shadow-lg fixed top-1 md:top-3 right-1 md:right-3 w-max max-w-[320px]" onClick={() => finish()}>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none"
                          viewBox="0 0 24 24">
@@ -31,7 +31,7 @@ export const ResultAlert = (props: ResultAlertInterface) => {
                 </div>
             </div>
             : display && ctx?.score !== undefined ?
-            <div className="alert alert-info shadow-lg absolute top-[10px] right-[10px] w-max" onClick={() => finish()}>
+            <div className="alert alert-info shadow-lg fixed top-1 md:top-3 right-1 md:right-3 w-max max-w-[320px]" onClick={() => finish()}>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          className="stroke-current flex-shrink-0 w-6 h-6">

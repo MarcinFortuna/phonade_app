@@ -1,4 +1,4 @@
-import React, {useEffect, KeyboardEventHandler, ChangeEventHandler} from 'react';
+import React, {useEffect, KeyboardEventHandler, ChangeEventHandler, useState} from 'react';
 import {useAppContext} from "../libs/ContextLib";
 import {translateSampaToIpa, translateIpaToSampa, translateConvenientSymbolsToIpa} from "../helperFunctions";
 
@@ -21,8 +21,18 @@ function InputBox() {
         }
     }
 
+    const [matches, setMatches] = useState<boolean>(
+        window.matchMedia("(min-width: 481px)").matches
+    )
+
     useEffect(() => {
-        document.getElementById("mainInput")?.focus();
+        window
+            .matchMedia("(min-width: 481px)")
+            .addEventListener('change', (e: MediaQueryListEvent) => setMatches(e.matches));
+    }, []);
+
+    useEffect(() => {
+        if (matches) document.getElementById("mainInput")?.focus();
     });
 
     useEffect(() => {
