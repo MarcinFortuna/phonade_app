@@ -31,17 +31,22 @@ const Feedback = () => {
 
     return (
         <div className="stats shadow flex">
-            <div className="stat flex items-center justify-center w-1/7 text-xs">
+            <div className="stat flex items-center justify-center w-1/8 text-xs min-w-[24px]">
                 <div className={`text-sm ${feedback_correct_css_class}`}>{displayFeedback ? text_to_display : "-"}</div>
             </div>
-            <div className="stat w-3/7">
+            <div className="stat w-3/8">
                 <div className="stat-title text-center text-xs sm:text-sm md:text-md">Your answer</div>
                 <div className="stat-value text-center text-sm sm:text-md md:text-lg">{displayFeedback ? lastTranscriptionToDisplay : "------"}</div>
             </div>
-            <div className="stat w-3/7">
+            <div className="stat w-3/8">
                 <div className="stat-title text-center text-xs sm:text-sm md:text-md">Correct answer</div>
                 <div className="stat-value text-center text-sm sm:text-md md:text-lg">{displayFeedback ? lastCorrectTranscriptionToDisplay : "------"}</div>
             </div>
+            <div className="stat w-1/8">
+                <div className="stat-title text-center text-xs sm:text-sm md:text-md">Score</div>
+                <div className="stat-value text-center text-md">{ctx?.score || 0}</div>
+            </div>
+
         </div>
     )
 }

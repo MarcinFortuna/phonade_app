@@ -23,7 +23,7 @@ function InputBox() {
 
     const [matches, setMatches] = useState<boolean>(
         window.matchMedia("(min-width: 481px)").matches
-    )
+    );
 
     useEffect(() => {
         window

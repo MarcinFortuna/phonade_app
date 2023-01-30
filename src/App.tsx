@@ -3,7 +3,6 @@ import {AppContextInterface, AppContextProvider} from "./libs/ContextLib";
 import {getShuffledArr} from "./helperFunctions";
 import Keyboard from './components/Keyboard';
 import ShowItemToTransc from './components/ShowItemToTransc';
-import ShowScore from './components/ShowScore';
 import SelectMode from './components/SelectMode';
 import CurrentIdxBox from './components/CurrentIdx';
 import Header from "./components/Header";
@@ -58,6 +57,8 @@ function App() {
         if (guessActive) toggleGuessActive();
     }
 
+    console.log(window.innerHeight);
+
     const appContext: AppContextInterface = {
         guessActive: guessActive,
         toggleGuessActive: toggleGuessActive,
@@ -90,9 +91,8 @@ function App() {
                 <SelectMode setCurrentMode={setCurrentMode} arrSeqAll={setArrSeqAll} arrRandomAll={setArrRandomAll}
                             arrRandomTest={setArrRandomTest}
                             currentMode={currentMode} resetMode={resetMode}/>
-                <div className="flex justify-center flex-col md:flex-row">
+                <div className="flex justify-center">
                     <Feedback/>
-                    <ShowScore/>
                 </div>
                 <div className="card w-96 bg-neutral text-neutral-content">
                     <div className="card-body items-center text-center">

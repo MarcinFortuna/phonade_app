@@ -7,3 +7,11 @@ btn {
 kbd {
     @apply font-sans;
 }
+.stat {
+    @apply px-2;
+}
+.stats > .stat:first-child > div.stat-value {
+    @apply min-w-[24px];
+    @apply flex;
+    @apply justify-center;
+}
