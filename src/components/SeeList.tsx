@@ -3,12 +3,13 @@ import {most_common} from "../data/transcriptions";
 import {transcription_most_common} from "../types/types";
 import {useAppContext} from "../libs/ContextLib";
 import {translateConvenientSymbolsToIpa, translateSampaToIpa} from "../helperFunctions";
+import {GameModes} from "../enums/enums";
 
 export const SeeList = () => {
 
     const ctx = useAppContext();
 
-    const listActive: boolean = ctx?.guessActive || ctx?.currentMode === "";
+    const listActive: boolean = ctx?.guessActive || ctx?.currentMode === GameModes.OFF;
 
     return (
         <>
