@@ -21,5 +21,4 @@ export const translateIpaToSampa = (trans: string) => {
 }
 
 export const translateConvenientSymbolsToIpa = (trans: string) => trans
-    .replaceAll("'", "ˈ")
-    .replaceAll("g", "ɡ");
+    .replaceAll("'", "ˈ");

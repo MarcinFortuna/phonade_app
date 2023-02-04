@@ -1,4 +1,5 @@
 import {useContext, createContext} from "react";
+import {GameModes} from "../enums/enums";
 
 export interface AppContextInterface {
     guessActive: boolean
@@ -12,7 +13,7 @@ export interface AppContextInterface {
     decrementTransIdx?: () => void
     resetTransIdx: () => void
     currentMode: string
-    setCurrentMode: (val: string) => void
+    setCurrentMode: (val: GameModes) => void
     inputBoxValue: string
     setInputBoxValue: (val: string) => void
     handleSpecialKey: (val: string, position: number) => void

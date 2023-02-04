@@ -10,6 +10,7 @@ import Feedback from "./components/Feedback";
 import InputBox from "./components/InputBox";
 import CheckTrans from "./components/CheckTrans";
 import ClearButton from "./components/ClearButton";
+import {GameModes} from "./enums/enums";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
     const setArrSeqAll = () => setCurrentArray([...Array(200).keys()]);
     const setArrRandomAll = () => setCurrentArray(getShuffledArr([...Array(200).keys()]));
     const setArrRandomTest = () => setCurrentArray(getShuffledArr([...Array(200).keys()]).slice(0, 20));
+    const setInfl = () => setCurrentArray(getShuffledArr([...Array(60).keys()]));
 
     // Currently displayed transcription
     const [currentTransIdx, setCurrentTransIdx] = useState<number>(0);
@@ -34,7 +36,7 @@ function App() {
     const decrementTransIdx = () => setCurrentTransIdx(currentTransIdx - 1);
     const resetTransIdx = () => setCurrentTransIdx(0);
 
-    const [currentMode, setCurrentMode] = useState<string>("");
+    const [currentMode, setCurrentMode] = useState<GameModes>(GameModes.OFF);
 
     const [inputBoxValue, setInputBoxValue] = useState<string>("");
 
@@ -56,8 +58,6 @@ function App() {
         resetScore();
         if (guessActive) toggleGuessActive();
     }
-
-    console.log(window.innerHeight);
 
     const appContext: AppContextInterface = {
         guessActive: guessActive,
@@ -89,7 +89,7 @@ function App() {
             <div className="App flex flex-col gap-3 items-center">
                 <Header/>
                 <SelectMode setCurrentMode={setCurrentMode} arrSeqAll={setArrSeqAll} arrRandomAll={setArrRandomAll}
-                            arrRandomTest={setArrRandomTest}
+                            arrRandomTest={setArrRandomTest} generateInfl={setInfl}
                             currentMode={currentMode} resetMode={resetMode}/>
                 <div className="flex justify-center">
                     <Feedback/>

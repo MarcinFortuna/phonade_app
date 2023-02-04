@@ -1,6 +1,6 @@
 import React from 'react';
 import {most_common} from "../data/transcriptions";
-import {transcription} from "../types/types";
+import {transcription_most_common} from "../types/types";
 import {useAppContext} from "../libs/ContextLib";
 import {translateConvenientSymbolsToIpa, translateSampaToIpa} from "../helperFunctions";
 
@@ -38,7 +38,7 @@ export const SeeList = () => {
                           </tr>
                         </thead>
                         <tbody>
-                        {most_common.map((word: transcription) => {
+                        {most_common.map((word: transcription_most_common) => {
                             return <tr key={word.id}>
                                 <td>{word.id}</td>
                                 <td>{word.spelling}</td>

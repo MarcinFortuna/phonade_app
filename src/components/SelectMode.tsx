@@ -1,31 +1,40 @@
 import React from 'react';
+import {GameModes} from '../enums/enums';
 
 const SelectMode = (props: any) => {
 
     const handleClickSeqAll = () => {
         props.resetMode();
-        props.setCurrentMode('All (sequential)');
+        props.setCurrentMode(GameModes.ALL_SEQ);
         props.arrSeqAll();
     }
     const handleClickRandomAll = () => {
         props.resetMode();
-        props.setCurrentMode('All (random order)');
+        props.setCurrentMode(GameModes.ALL_RANDOM);
         props.arrRandomAll();
     }
     const handleClickRandomTest = () => {
         props.resetMode();
-        props.setCurrentMode('Test (random order)');
+        props.setCurrentMode(GameModes.TEST_RANDOM);
         props.arrRandomTest();
     }
 
+    const handleClickInflection = () => {
+        props.resetMode();
+        props.setCurrentMode(GameModes.INFL);
+        props.generateInfl();
+    }
+
     return (
-        <div className="btn-group m-auto flex justify-center md:gap-1">
-            <button className={`btn-sm sm:btn-md btn ${props.currentMode === 'All (sequential)' ? 'btn-secondary' : 'btn-primary'}`}
+        <div className="sm:btn-group m-auto flex justify-center md:gap-1 flex-wrap">
+            <button className={`btn-sm basis-2/4 sm:basis-1/5 sm:btn-md btn ${props.currentMode === GameModes.ALL_SEQ ? 'btn-secondary' : 'btn-primary'}`}
                     onClick={handleClickSeqAll}>All<br/>Sequential</button>
-            <button className={`btn-sm sm:btn-md btn ${props.currentMode === 'All (random order)' ? 'btn-secondary' : 'btn-primary'}`}
+            <button className={`btn-sm basis-2/4 sm:basis-1/5 sm:btn-md btn ${props.currentMode === GameModes.ALL_RANDOM ? 'btn-secondary' : 'btn-primary'}`}
                     onClick={handleClickRandomAll}>All<br/>Random</button>
-            <button className={`btn-sm sm:btn-md btn ${props.currentMode === 'Test (random order)' ? 'btn-secondary' : 'btn-primary'}`}
+            <button className={`btn-sm basis-2/4 sm:basis-1/5 sm:btn-md btn ${props.currentMode === GameModes.TEST_RANDOM ? 'btn-secondary' : 'btn-primary'}`}
                     onClick={handleClickRandomTest}>TEST<br/>20 Random</button>
+            <button className={`btn-sm basis-2/4 sm:basis-1/5 sm:btn-md btn ${props.currentMode === GameModes.INFL ? 'btn-secondary' : 'btn-primary'}`}
+                    onClick={handleClickInflection}>Inflection</button>
         </div>
     )
 }
