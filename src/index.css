@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 btn {
     @apply shrink;
 }
@@ -14,4 +15,12 @@ kbd {
     @apply min-w-[24px];
     @apply flex;
     @apply justify-center;
+}
+
+.btn-secondary {
+    @apply rounded-l-lg !important;
+}
+
+.btn-primary:nth-child(4) {
+    @apply rounded-r-lg !important;
 }
