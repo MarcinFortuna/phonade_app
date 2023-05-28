@@ -12,3 +12,9 @@ export type transcription_infl = {
     sampa_basic: string,
     sampa_infl: string
 };
+
+export type transcription_sentence = {
+    id: number,
+    spelling: string,
+    sampa: string
+}

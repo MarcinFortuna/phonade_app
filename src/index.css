@@ -27,3 +27,7 @@ kbd {
 .btn-primary:nth-child(4) {
     @apply rounded-r-lg !important;
 }
+
+.table.table-compact {
+    @apply whitespace-normal
+}

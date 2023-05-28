@@ -1,6 +1,6 @@
-import React from 'react';
-import {most_common} from "../data/transcriptions";
-import {transcription_most_common} from "../types/types";
+import React, {useState} from 'react';
+import {most_common, sentences} from "../data/transcriptions";
+import {transcription_most_common, transcription_sentence} from "../types/types";
 import {useAppContext} from "../libs/ContextLib";
 import {translateConvenientSymbolsToIpa, translateSampaToIpa} from "../helperFunctions";
 import {GameModes} from "../enums/enums";
@@ -10,6 +10,8 @@ export const SeeList = () => {
     const ctx = useAppContext();
 
     const listActive: boolean = ctx?.guessActive || ctx?.currentMode === GameModes.OFF;
+
+    const [tabOne, setTab] = useState<boolean>(true);
 
     return (
         <>
@@ -23,31 +25,62 @@ export const SeeList = () => {
                 </svg>
             </label>
             <input type="checkbox" id="vocab-list-modal" className="modal-toggle" />
+
             <label htmlFor="vocab-list-modal" className="modal cursor-pointer">
-                <label className="modal-box relative" htmlFor="">
-                    <h3 className="font-bold text-lg">The 200 most common English words and their RP pronunciation
-                        (strong forms only)</h3>
-                    <h4 className="font-bold text-sm mt-2">Prepared on the basis of <a
-                        href="http://www.teacherjoe.us/Vocab200.html" className="link link-secondary">Teacher Joe's list</a></h4>
-                    <div className="overflow-x-auto">
-                      <table className="table table-compact w-full mt-6">
-                        <thead>
-                          <tr>
-                            <th></th>
-                            <th>Word</th>
-                            <th>{ctx?.useIpa ? "IPA" : "X-SAMPA"}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        {most_common.map((word: transcription_most_common) => {
-                            return <tr key={word.id}>
-                                <td>{word.id}</td>
-                                <td>{word.spelling}</td>
-                                <td>{ctx?.useIpa ? translateConvenientSymbolsToIpa(translateSampaToIpa(word.sampa_strong)) : word.sampa_strong}</td>
-                            </tr>
-                        })}
-                        </tbody>
-                      </table>
+                <label className="modal-box w-11/12 max-w-7xl" htmlFor="">
+                    <div className="tabs mb-6">
+                        <a className={tabOne ? "w-1/2 tab tab-lg tab-bordered tab-active" : "w-1/2 tab tab-lg tab-bordered"} onClick={() => setTab(true)}>Words</a>
+                        <a className={tabOne ? "w-1/2 tab tab-lg tab-bordered" : "w-1/2 tab tab-lg tab-bordered tab-active"} onClick={() => setTab(false)}>Sentences</a>
+                    </div>
+                    <h3 className="font-bold text-lg">{tabOne ? "The 200 most common English words and their RP pronunciation (strong forms only)" : "91 exemplary sentences and their RP pronunciation"}</h3>
+                    <div className={tabOne ? '' : "hidden"}>
+                        <h4 className="font-bold text-sm mt-2">Prepared on the basis of <a
+                            href="http://www.teacherjoe.us/Vocab200.html" className="link link-secondary">Teacher Joe's list</a></h4>
+                        <div className="">
+                          <table className="table table-compact w-full mt-6">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Word</th>
+                                <th>{ctx?.useIpa ? "IPA" : "X-SAMPA"}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {most_common.map((word: transcription_most_common) => {
+                                return <tr key={word.id}>
+                                    <td>{word.id}</td>
+                                    <td>{word.spelling}</td>
+                                    <td>{ctx?.useIpa ? translateConvenientSymbolsToIpa(translateSampaToIpa(word.sampa_strong)) : word.sampa_strong}</td>
+                                </tr>
+                            })}
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                    <div className={tabOne ? 'hidden' : ''}>
+                        <h4 className="font-bold text-sm mt-2">
+                            Beware! These are not the only options for the distribution of word stress and weak forms.
+                        </h4>
+                        <div className="">
+                          <table className="table table-compact w-full mt-6">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Sentence</th>
+                                <th>{ctx?.useIpa ? "IPA" : "X-SAMPA"}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {sentences.map((sentence: transcription_sentence) => {
+                                return <tr key={sentence.id}>
+                                    <td>{sentence.id}</td>
+                                    <td>{sentence.spelling}</td>
+                                    <td>{ctx?.useIpa ? translateConvenientSymbolsToIpa(translateSampaToIpa(sentence.sampa)) : sentence.sampa}</td>
+                                </tr>
+                            })}
+                            </tbody>
+                          </table>
+                        </div>
                     </div>
                     <div className="modal-action">
                         <label htmlFor="vocab-list-modal" className="btn">Close</label>
