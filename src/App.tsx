@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppContextInterface, AppContextProvider} from "./libs/ContextLib";
 import {getShuffledArr} from "./helperFunctions";
 import Keyboard from './components/Keyboard';
@@ -10,7 +10,8 @@ import Feedback from "./components/Feedback";
 import InputBox from "./components/InputBox";
 import CheckTrans from "./components/CheckTrans";
 import ClearButton from "./components/ClearButton";
-import {GameModes} from "./enums/enums";
+import {Order, Scope, Sets} from "./enums/enums";
+import {current_mode} from "./types/types";
 
 function App() {
 
@@ -25,10 +26,19 @@ function App() {
 
     // Current array of examples
     const [currentArray, setCurrentArray] = useState<number[]>([]);
-    const setArrSeqAll = () => setCurrentArray([...Array(200).keys()]);
-    const setArrRandomAll = () => setCurrentArray(getShuffledArr([...Array(200).keys()]));
-    const setArrRandomTest = () => setCurrentArray(getShuffledArr([...Array(200).keys()]).slice(0, 20));
-    const setInfl = () => setCurrentArray(getShuffledArr([...Array(60).keys()]));
+    const handleSettingCurrentArray = (config: current_mode) => {
+        let arrLengthToChooseFrom: number = config.set === Sets.WORDS
+            ? 200
+            : config.set === Sets.INFLECTION
+                ? 60
+                : 91
+
+        let arrOfKeys = [...Array(arrLengthToChooseFrom).keys()];
+        if (config.order === Order.RANDOM) arrOfKeys = getShuffledArr(arrOfKeys);
+        if (config.scope === Scope.TEST) arrOfKeys = arrOfKeys.slice(0,20);
+
+        setCurrentArray(arrOfKeys);
+    }
 
     // Currently displayed transcription
     const [currentTransIdx, setCurrentTransIdx] = useState<number>(0);
@@ -36,7 +46,13 @@ function App() {
     const decrementTransIdx = () => setCurrentTransIdx(currentTransIdx - 1);
     const resetTransIdx = () => setCurrentTransIdx(0);
 
-    const [currentMode, setCurrentMode] = useState<GameModes>(GameModes.OFF);
+    const [currentMode, setCurrentMode] = useState<current_mode>({
+        set: Sets.WORDS,
+        order: Order.SEQ,
+        scope: Scope.ALL
+    });
+
+    const [gameOn, setGameOn] = useState<boolean>(false);
 
     const [inputBoxValue, setInputBoxValue] = useState<string>("");
 
@@ -59,6 +75,14 @@ function App() {
         if (guessActive) toggleGuessActive();
     }
 
+    useEffect(() => {
+        if (gameOn) {
+            handleSettingCurrentArray(currentMode);
+        } else {
+            resetMode();
+        }
+    }, [gameOn]);
+
     const appContext: AppContextInterface = {
         guessActive: guessActive,
         toggleGuessActive: toggleGuessActive,
@@ -72,6 +96,8 @@ function App() {
         resetTransIdx: resetTransIdx,
         currentMode: currentMode,
         setCurrentMode: setCurrentMode,
+        gameOn: gameOn,
+        setGameOn: setGameOn,
         inputBoxValue: inputBoxValue,
         setInputBoxValue: setInputBoxValue,
         handleSpecialKey: handleSpecialKey,
@@ -88,9 +114,7 @@ function App() {
         <AppContextProvider value={appContext}>
             <div className="App flex flex-col gap-3 items-center">
                 <Header/>
-                <SelectMode setCurrentMode={setCurrentMode} arrSeqAll={setArrSeqAll} arrRandomAll={setArrRandomAll}
-                            arrRandomTest={setArrRandomTest} generateInfl={setInfl}
-                            currentMode={currentMode} resetMode={resetMode}/>
+                <SelectMode/>
                 <div className="flex justify-center">
                     <Feedback/>
                 </div>

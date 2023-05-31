@@ -1,9 +1,9 @@
-import React, {MouseEventHandler, useEffect, useMemo, useState} from 'react';
-import {most_common, all_inflected} from '../data/transcriptions';
+import React, {MouseEventHandler, useEffect, useState} from 'react';
+import {all_inflected, most_common, sentences} from '../data/transcriptions';
 import {useAppContext} from "../libs/ContextLib";
 import {translateIpaToSampa} from "../helperFunctions";
 import {ResultAlert} from "./ResultAlert";
-import {GameModes} from "../enums/enums";
+import {Sets} from "../enums/enums";
 
 const CheckTrans = () => {
 
@@ -18,7 +18,7 @@ const CheckTrans = () => {
             if (ctx?.useIpa) transcription_to_check = translateIpaToSampa(transcription_to_check);
             ctx?.setLastTranscription(transcription_to_check);
             let item_idx: number = ctx.currentArray[ctx.currentTransIdx];
-            let correct_trans: string = ctx?.currentMode === GameModes.INFL ? all_inflected[item_idx].sampa_infl : most_common[item_idx].sampa_strong;
+            let correct_trans: string = ctx?.currentMode.set === Sets.INFLECTION ? all_inflected[item_idx].sampa_infl : ctx?.currentMode.set === Sets.WORDS ? most_common[item_idx].sampa_strong : sentences[item_idx].sampa
             ctx?.setLastCorrectTranscription(correct_trans);
             if (transcription_to_check === correct_trans) {
                 console.log("CORRECT");

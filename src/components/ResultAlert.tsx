@@ -1,5 +1,6 @@
 import React from 'react';
 import {useAppContext} from "../libs/ContextLib";
+import {Scope, Sets} from "../enums/enums";
 
 interface ResultAlertInterface {
     display: boolean
@@ -14,12 +15,18 @@ export const ResultAlert = (props: ResultAlertInterface) => {
 
     const finish = () => {
         hideAlert(false);
-        ctx?.resetMode();
-        ctx?.setCurrentMode("");
+        ctx?.setGameOn(false);
     }
 
+    const achieved90PerCent = ctx?.score !== undefined &&
+        (ctx?.score >= 180
+            || (ctx?.currentMode.scope === Scope.TEST && ctx?.score >= 18)
+            || (ctx?.currentMode.set === Sets.INFLECTION && ctx?.score >= 54)
+            || (ctx?.currentMode.set === Sets.SENTENCES && ctx?.score >= 82)
+        )
+
     return (
-        display && ctx?.score !== undefined && ((ctx?.currentMode === 'Test (random order)' && ctx?.score >= 18) || ctx?.score >= 180) ?
+        display && achieved90PerCent ?
             <div className="alert alert-success shadow-lg fixed top-1 md:top-3 right-1 md:right-3 w-max max-w-[320px]" onClick={() => finish()}>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none"

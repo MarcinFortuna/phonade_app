@@ -1,7 +1,15 @@
-export enum GameModes {
-    OFF = "Off",
-    ALL_SEQ = "All (sequential)",
-    ALL_RANDOM = "All (random order)",
-    TEST_RANDOM = 'Test (random order)',
-    INFL = 'Inflection'
+export enum Sets {
+    WORDS = 'Words',
+    SENTENCES = 'Sentences',
+    INFLECTION = 'Inflection'
+};
+
+export enum Order {
+    SEQ = "Sequential",
+    RANDOM = "Random"
+};
+
+export enum Scope {
+    ALL = "All",
+    TEST = "20 samples"
 };

@@ -1,17 +1,19 @@
 import React, {useEffect} from 'react';
 import {useAppContext} from "../libs/ContextLib";
-import {GameModes} from "../enums/enums";
+import {Scope, Sets} from "../enums/enums";
 
 const CurrentIdxBox = () => {
 
     const ctx = useAppContext();
 
     let idx: number = (ctx?.currentTransIdx || 0) + 1;
-    let range: number = ctx?.currentMode === GameModes.TEST_RANDOM
+    let range: number = ctx?.currentMode.scope === Scope.TEST
         ? 20
-        : ctx?.currentMode === GameModes.INFL
-            ? 60
-            : 200;
+        : ctx?.currentMode.set === Sets.WORDS
+            ? 200
+            : ctx?.currentMode.set === Sets.INFLECTION
+                ? 60
+                : 91
 
     const calculateStepClassnames = (i: number) => i < idx ? "step step-primary" : "step";
 

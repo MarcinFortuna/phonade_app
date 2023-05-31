@@ -1,3 +1,5 @@
+import {Order, Scope, Sets} from "../enums/enums";
+
 export type transcription_most_common = {
     id: number,
     spelling: string,
@@ -17,4 +19,10 @@ export type transcription_sentence = {
     id: number,
     spelling: string,
     sampa: string
+}
+
+export type current_mode = {
+    set: Sets,
+    order: Order,
+    scope: Scope
 }

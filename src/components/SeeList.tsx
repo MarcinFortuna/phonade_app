@@ -3,13 +3,12 @@ import {most_common, sentences} from "../data/transcriptions";
 import {transcription_most_common, transcription_sentence} from "../types/types";
 import {useAppContext} from "../libs/ContextLib";
 import {translateConvenientSymbolsToIpa, translateSampaToIpa} from "../helperFunctions";
-import {GameModes} from "../enums/enums";
 
 export const SeeList = () => {
 
     const ctx = useAppContext();
 
-    const listActive: boolean = ctx?.guessActive || ctx?.currentMode === GameModes.OFF;
+    const listActive: boolean =  ctx?.guessActive || !ctx?.gameOn;
 
     const [tabOne, setTab] = useState<boolean>(true);
 
