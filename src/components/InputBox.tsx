@@ -1,6 +1,7 @@
 import React, {useEffect, KeyboardEventHandler, ChangeEventHandler, useState} from 'react';
 import {useAppContext} from "../libs/ContextLib";
 import {translateSampaToIpa, translateIpaToSampa, translateConvenientSymbolsToIpa} from "../helperFunctions";
+import {Sets} from "../enums/enums";
 
 function InputBox() {
 
@@ -44,7 +45,7 @@ function InputBox() {
     }, [ctx?.useIpa]);
 
     return(
-        <input id="mainInput" className="input input-bordered w-full" value={ctx?.inputBoxValue} onChange={handleChange} onKeyUp={handleEnter} autoFocus disabled={!ctx?.gameOn}></input>
+        <input id="mainInput" className={`input input-bordered w-full ${ctx?.currentMode.set === Sets.SENTENCES && 'text-sm'}`} value={ctx?.inputBoxValue} onChange={handleChange} onKeyUp={handleEnter} autoFocus disabled={!ctx?.gameOn}></input>
     );
 }
 

@@ -9,7 +9,7 @@ const CheckTrans = () => {
 
     const ctx = useAppContext();
 
-    const [finishGame, setFinishGame] = useState<boolean>(false);
+    const [showAlert, setShowAlert] = useState<boolean>(false);
 
     const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
         if (ctx && !ctx.guessActive) {
@@ -28,7 +28,7 @@ const CheckTrans = () => {
             }
         } else {
             if ((ctx?.currentArray.length === 20 && ctx?.currentTransIdx === 19) || (ctx?.currentArray.length === 200 && ctx?.currentTransIdx === 199)) {
-                setFinishGame(true);
+                setShowAlert(true);
             } else {
                 ctx?.incrementTransIdx();
             }
@@ -38,14 +38,14 @@ const CheckTrans = () => {
     }
 
     useEffect(() => {
-        if (finishGame) setFinishGame(false);
+        if (showAlert) setShowAlert(false);
     }, [ctx?.score, ctx?.currentTransIdx]);
 
     return (
         <>
             <button id="checkTransButton" className="btn btn-square w-1/2 btn-secondary"
                     onClick={handleClick}>{ctx?.guessActive ? "Next" : "Check"}</button>
-            <ResultAlert display={finishGame} hideAlert={setFinishGame}></ResultAlert>
+            <ResultAlert display={showAlert} hideAlert={setShowAlert}></ResultAlert>
         </>
     )
 }

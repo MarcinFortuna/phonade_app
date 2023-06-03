@@ -16,6 +16,7 @@ const SelectMode = () => {
     return (
         <>
             <div className={`m-auto flex flex-col justify-center md:gap-1 ${gameOn ? 'hidden' : ''}`}>
+                <div className="prose flex justify-center"><h4>Dataset:</h4></div>
                 <div className="btn-group flex w-full">
                     <button onClick={() => handleModeChange({'set': Sets.WORDS})}
                             className={`btn w-1/3 ${currentMode.set === Sets.WORDS ? "btn-secondary" : "btn-primary"}`}>Words
@@ -27,6 +28,7 @@ const SelectMode = () => {
                             className={`btn w-1/3 ${currentMode.set === Sets.SENTENCES ? "btn-secondary" : "btn-primary"}`}>Sentences
                     </button>
                 </div>
+                <div className="prose flex justify-center"><h4>Order of examples:</h4></div>
                 <div className="btn-group flex w-full">
                     <button onClick={() => handleModeChange({'order': Order.SEQ})}
                             disabled={currentMode.scope === Scope.TEST}
@@ -37,6 +39,7 @@ const SelectMode = () => {
                             className={`btn w-1/2 ${currentMode.order === Order.RANDOM ? "btn-secondary" : "btn-primary"}`}>Random
                     </button>
                 </div>
+                <div className="prose flex justify-center"><h4>Number of examples:</h4></div>
                 <div className="btn-group flex w-full">
                     <button onClick={() => handleModeChange({'scope': Scope.ALL})}
                             className={`btn w-1/2 ${currentMode.scope === Scope.ALL ? "btn-secondary" : "btn-primary"}`}>All

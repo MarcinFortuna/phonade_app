@@ -20,14 +20,14 @@ kbd {
     @apply justify-center;
 }
 
-.btn-secondary {
-    @apply rounded-l-lg !important;
+.table.table-compact, .stat-value {
+    @apply whitespace-normal;
 }
 
-.btn-primary:nth-child(4) {
-    @apply rounded-r-lg !important;
+.stat-value {
+    @apply max-w-[400px];
 }
 
-.table.table-compact {
-    @apply whitespace-normal
+html[data-theme=dark] .prose h3, [data-theme=dark] .prose h4 {
+    color: lightgray;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {useAppContext} from "../libs/ContextLib";
 import {translateSampaToIpa} from "../helperFunctions";
+import {Sets} from "../enums/enums";
 
 const Feedback = () => {
 
@@ -30,7 +31,21 @@ const Feedback = () => {
     }
 
     return (
-        <div className="stats shadow flex">
+        ctx?.currentMode.set === Sets.SENTENCES
+            ? <div className="shadow flex flex-col w-full">
+            <div className="flex justify-around">
+                <div className={`flex align-center text-sm ${feedback_correct_css_class}`}>{displayFeedback ? text_to_display : "-"}</div>
+                <div className="flex flex-col">
+                    <div className="stat-title text-center text-xs sm:text-sm md:text-md">Score</div>
+                    <div className="stat-value text-center text-sm md:text-lg">{ctx?.score || 0}</div>
+                </div>
+            </div>
+            <div className="stat-title text-center text-xs sm:text-sm md:text-md">Your answer</div>
+            <div className="stat-value text-center text-sm sm:text-md md:text-lg w-[384px]">{displayFeedback ? lastTranscriptionToDisplay : "------"}</div>
+            <div className="stat-title text-center text-xs sm:text-sm md:text-md">Correct answer</div>
+            <div className="stat-value text-center text-sm sm:text-md md:text-lg">{displayFeedback ? lastCorrectTranscriptionToDisplay : "------"}</div>
+            </div>
+            : <div className="stats shadow flex">
             <div className="stat flex items-center justify-center w-1/8 text-xs min-w-[24px]">
                 <div className={`text-sm ${feedback_correct_css_class}`}>{displayFeedback ? text_to_display : "-"}</div>
             </div>
@@ -40,13 +55,12 @@ const Feedback = () => {
             </div>
             <div className="stat w-3/8">
                 <div className="stat-title text-center text-xs sm:text-sm md:text-md">Correct answer</div>
-                <div className="stat-value text-center text-sm sm:text-md md:text-lg">{displayFeedback ? lastCorrectTranscriptionToDisplay : "------"}</div>
+                <div className="text-center text-sm sm:text-md md:text-lg flex">{displayFeedback ? lastCorrectTranscriptionToDisplay : "------"}</div>
             </div>
             <div className="stat w-1/8">
                 <div className="stat-title text-center text-xs sm:text-sm md:text-md">Score</div>
                 <div className="stat-value text-center text-md">{ctx?.score || 0}</div>
             </div>
-
         </div>
     )
 }

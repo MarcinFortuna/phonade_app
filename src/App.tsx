@@ -35,7 +35,7 @@ function App() {
 
         let arrOfKeys = [...Array(arrLengthToChooseFrom).keys()];
         if (config.order === Order.RANDOM) arrOfKeys = getShuffledArr(arrOfKeys);
-        if (config.scope === Scope.TEST) arrOfKeys = arrOfKeys.slice(0,20);
+        if (config.scope === Scope.TEST) arrOfKeys = arrOfKeys.slice(0, 20);
 
         setCurrentArray(arrOfKeys);
     }
@@ -67,8 +67,9 @@ function App() {
     const [lastTranscription, setLastTranscription] = useState<string>("");
     const [lastCorrectTranscription, setLastCorrectTranscription] = useState<string>("");
 
-    const resetMode = () => {
+    const resetMode = async () => {
         console.log("RESET");
+        setCurrentArray([0]);
         setInputBoxValue("");
         resetTransIdx();
         resetScore();
@@ -114,26 +115,33 @@ function App() {
         <AppContextProvider value={appContext}>
             <div className="App flex flex-col gap-3 items-center">
                 <Header/>
+                <div className={`prose flex flex-col justify-center items-center ${gameOn && 'hidden'}`}>
+                    <h3>Welcome to phonade!</h3>
+                    <h4>Choose game settings:</h4>
+                </div>
                 <SelectMode/>
-                <div className="flex justify-center">
-                    <Feedback/>
-                </div>
-                <div className="card w-96 bg-neutral text-neutral-content">
-                    <div className="card-body items-center text-center">
-                        <ShowItemToTransc idx={currentTransIdx}/>
+                <div className={gameOn ? '' : 'hidden'}>
+                    <div className="flex justify-center">
+                        <Feedback/>
                     </div>
-                </div>
-                <div className="form-control text-center w-full max-w-[382px]">
-                    <div className="flex justify-center flex-col md:flex-row">
-                        <InputBox/>
-                        <div className="flex w-full">
-                            <CheckTrans/>
-                            <ClearButton/>
+                    <div className="card w-96 bg-neutral text-neutral-content">
+                        <div className="card-body items-center text-center">
+                            <ShowItemToTransc />
                         </div>
                     </div>
+                    <div className="form-control text-center w-full max-w-[382px]">
+                        <div
+                            className={`flex justify-center flex-col ${currentMode.set !== Sets.SENTENCES && "md:flex-row"}`}>
+                            <InputBox/>
+                            <div className="flex w-full">
+                                <CheckTrans/>
+                                <ClearButton/>
+                            </div>
+                        </div>
+                    </div>
+                    <Keyboard/>
+                    <CurrentIdxBox/>
                 </div>
-                <Keyboard/>
-                <CurrentIdxBox/>
             </div>
         </AppContextProvider>
     );
