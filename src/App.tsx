@@ -66,6 +66,7 @@ function App() {
 
     const [lastTranscription, setLastTranscription] = useState<string>("");
     const [lastCorrectTranscription, setLastCorrectTranscription] = useState<string>("");
+    const [lastGuessCorrect, setLastGuessCorrect] = useState<boolean>(true);
 
     const resetMode = async () => {
         console.log("RESET");
@@ -108,6 +109,8 @@ function App() {
         lastCorrectTranscription: lastCorrectTranscription,
         setLastTranscription: setLastTranscription,
         setLastCorrectTranscription: setLastCorrectTranscription,
+        lastGuessCorrect: lastGuessCorrect,
+        setLastGuessCorrect: setLastGuessCorrect,
         resetMode: resetMode
     }
 

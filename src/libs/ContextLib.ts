@@ -25,6 +25,8 @@ export interface AppContextInterface {
     setLastTranscription: (val: string) => void
     lastCorrectTranscription: string
     setLastCorrectTranscription: (val: string) => void
+    lastGuessCorrect: boolean
+    setLastGuessCorrect: Dispatch<SetStateAction<boolean>>
     resetMode: () => void
 }
 

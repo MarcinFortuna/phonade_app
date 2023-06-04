@@ -19,6 +19,7 @@ export type transcription_sentence = {
     id: number,
     spelling: string,
     sampa: string
+    sampa_regex?: RegExp
 }
 
 export type current_mode = {

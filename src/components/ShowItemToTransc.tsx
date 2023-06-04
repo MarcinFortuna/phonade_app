@@ -10,16 +10,12 @@ const ShowItemToTransc = () => {
     let item_idx: number = 0;
     let item_to_transcribe: string = "";
     if (ctx?.gameOn) {
-        try {        item_idx = ctx?.currentArray[ctx?.currentTransIdx] || 0;
+        item_idx = ctx?.currentArray[ctx?.currentTransIdx] || 0;
         item_to_transcribe = ctx?.currentMode.set === Sets.INFLECTION
             ? all_inflected[item_idx].infl
             : ctx?.currentMode.set === Sets.WORDS
                 ? most_common[item_idx].spelling
                 : sentences[item_idx].spelling
-} catch(error) {
-            console.log(error);
-            console.log(ctx);
-        }
     }
 
     return (

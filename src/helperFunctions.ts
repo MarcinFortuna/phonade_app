@@ -22,3 +22,10 @@ export const translateIpaToSampa = (trans: string) => {
 
 export const translateConvenientSymbolsToIpa = (trans: string) => trans
     .replaceAll("'", "ˈ");
+
+export const getRidOfDoubleSpaces = (trans: string) => {
+    while (trans.includes("  ")) {
+        trans = trans.replaceAll("  ", " ");
+    }
+    return trans;
+}

@@ -10,19 +10,19 @@ const Feedback = () => {
     const displayFeedback: boolean = (ctx && ctx.currentArray.length > 0 && ctx.guessActive) || false;
 
     let text_to_display: React.ReactNode;
-    let correct_bool: boolean;
+    let correct_bool: boolean | undefined;
     let feedback_correct_css_class: string = "stat-value";
     let lastTranscriptionToDisplay: string = "";
     let lastCorrectTranscriptionToDisplay: string = "";
 
     if (displayFeedback) {
-        correct_bool = ctx?.lastTranscription === ctx?.lastCorrectTranscription;
+        correct_bool = ctx?.lastGuessCorrect;
         text_to_display = correct_bool ?
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 ${ctx?.currentMode.set === Sets.SENTENCES && 'self-center'}`}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
             :
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 ${ctx?.currentMode.set === Sets.SENTENCES && 'self-center'}`}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         feedback_correct_css_class = correct_bool ? "stat-value text-success" : "stat-value text-warning";
